@@ -1,4 +1,6 @@
 function fish_prompt
+  set -g fish_greeting
+
   # Cache exit status
   set -l last_status $status
 
@@ -16,7 +18,7 @@ function fish_prompt
   end
 
   # Setup colors
-  set -l hostcolor (set_color (uname -n | md5sum | cut -f1 -d' ' | tr -d '\n' | tail -c6))
+  set -l hostcolor (set_color green)
   set -l normal (set_color normal)
   set -l white (set_color FFFFFF)
   set -l turquoise (set_color 5fdfff)
@@ -28,21 +30,20 @@ function fish_prompt
 
   # Configure __fish_git_prompt
   set -g __fish_git_prompt_char_stateseparator ' '
-  set -g __fish_git_prompt_color 5fdfff
-  set -g __fish_git_prompt_color_flags df5f00
   set -g __fish_git_prompt_color_prefix white
   set -g __fish_git_prompt_color_suffix white
   set -g __fish_git_prompt_showdirtystate true
   set -g __fish_git_prompt_showuntrackedfiles true
   set -g __fish_git_prompt_showstashstate true
   set -g __fish_git_prompt_show_informative_status true
+  set -g __fish_git_prompt_showcolorhints true
 
   set -l current_user (whoami)
 
   ##
   ## Line 1
   ##
-  echo -n $hostcolor'╭─'$hotpink$current_user$white' at '$orange$__fish_prompt_hostname$white' in '$limegreen(pwd|sed "s=$HOME=⌁=")$turquoise
+  echo -n $hostcolor'╭─'$hostcolor$current_user$white' in '$limegreen(pwd|sed "s=$HOME=~=")$turquoise
   __fish_git_prompt " (%s)"
   echo
 
